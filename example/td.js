@@ -4,13 +4,12 @@ const taskProgressList = document.getElementById("taskProgressList");
 const taskDoneList = document.getElementById("taskDoneList");
 const taskBlockedList = document.getElementById("taskBlockedList");
 const addTaskBtn = document.getElementById("addTaskBtn");
-
+const saveBtn = document.getElementById("save-btn");
+const taskInput = document.getElementById("task-input");
+const taskStatus = document.getElementById("status");
+// const deleteTask = document.getElementsByClassName("bi-trash");
 // VARIABLES FOR TASK
 const tasks = [
-  {
-    name: "Task One",
-    status: "TODO",
-  },
   {
     name: "Task Two",
     status: "INPROGRESS",
@@ -21,7 +20,7 @@ const tasks = [
   },
 ];
 
-function draw() {
+function zurah() {
   taskTodoList.innerHTML = "";
   taskProgressList.innerHTML = "";
   taskDoneList.innerHTML = "";
@@ -67,21 +66,19 @@ function draw() {
   }
 }
 
-addTaskBtn.addEventListener("click", function () {
-  tasks[1].status = "DONE";
-  draw();
+saveBtn.addEventListener("click", function () {
+  const newTask = {
+    name: taskInput.value,
+    status: taskStatus.value,
+  };
+  tasks.push(newTask);
+  zurah();
   console.log("TASKS", tasks);
 });
-draw();
 
-addTaskBtn.addEventListener("click", () => {
-  const newTask = {
-    name: "shine",
-    status: "TODO",
-  };
-  tasks.push;
-  zurah();
+zurah();
+
+const deleteTask = deleteTask.addEventListener("click", function () {
+  console.log("deleted");
 });
-
-
-ifvciofd;cwdkc'x;w'cwecce
+//
