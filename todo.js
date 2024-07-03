@@ -7,12 +7,18 @@ const addTaskBtn = document.getElementById("addTaskBtn");
 const saveBtn = document.getElementById("save-btn");
 const taskInput = document.getElementById("task-input");
 const taskStatus = document.getElementById("status");
-const zasvar = document.getElementsByClassName("zasvar");
+
 // VARIABLES FOR TASK
+let isEdited = false;
+let editedIndex = -1;
 const tasks = [
   {
-    name: "Task Two",
+    name: "Task One",
     status: "INPROGRESS",
+  },
+  {
+    name: "Task Two",
+    status: "BLOCKED",
   },
   {
     name: "Task Three",
@@ -30,9 +36,9 @@ function zurah() {
     console.log("TASKS", tasks);
     const newTaskCard = `
     <div class="d-flex justify-content-between align-items-center border border-1 rounded p-2">
-        <span>${tasks[i].name}</span>
+        <span>${tasks[i].name} - ${i}</span>
         <div>
-            <button class="btn" onclick="edit(${i})">    
+            <button class="btn"   data-bs-toggle="modal" data-bs-target="#taskModal" onclick="editTask(${i})">    
             <i class="bi bi-pencil "></i>
             </button>
             <button class="btn" onclick="deleteTask(${i})">
@@ -65,15 +71,22 @@ function zurah() {
     }
   }
 }
-
+zurah();
 saveBtn.addEventListener("click", function () {
-  const newTask = {
-    name: taskInput.value,
-    status: taskStatus.value,
-  };
-  tasks.push(newTask);
+  if (isEdited) {
+    tasks[editedIndex].name = taskInput.value;
+    tasks[editedIndex].status = taskStatus.value;
+    isEdited = false;
+  } else {
+    const newTask = {
+      name: taskInput.value,
+      status: taskStatus.value,
+    };
+    tasks.push(newTask);
+  }
+  taskInput.value = "";
+  taskStatus.value = "TODO";
   zurah();
-  console.log("TASKS", tasks);
 });
 
 const deleteTask = (index) => {
@@ -83,13 +96,30 @@ const deleteTask = (index) => {
 
 zurah();
 
-document.querySelectorAll("edit, addTaskBtn").forEach(function (button) {
-  button.addEventListener("click", function (e) {
-    const edit = () => {
-      console.log(edit);
-      addTaskBtn;
-    };
-    draw();
-    console.log("a");
-  });
-});
+// document.querySelectorAll("editTask, addTaskBtn").forEach(function (button) {
+//   button.addEventListener("click", function (e) {
+//     const edit = () => {
+//       console.log(edit);
+//       addTaskBtn;
+//     };
+//     draw();
+//     console.log("a");
+//   });
+// });
+const editTask = (taskIndex) => {
+  console.log(taskIndex);
+  taskInput.value = tasks[taskIndex].name;
+  taskStatus.value = tasks[taskIndex].status;
+  isEdited = true;
+  editedIndex = taskIndex;
+};
+
+// function taskAmount() {
+//   const totalTasks = document.getElementsByClassName("totalTasks");
+//   totalTasks.innerTEXT = tasks.length;
+
+//   return totalTasks;
+// }
+// const listItems = document.querySelectorAll(".totalTasks");
+// const count = listItems.length;
+// console.log(count);
